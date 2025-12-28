@@ -2,7 +2,6 @@ package Controlador.LibPDF;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import Nucleo.Models.InfoPdf;
 import org.apache.pdfbox.rendering.PDFRenderer;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,28 +9,32 @@ import java.io.IOException;
 
 public class ImgPdf {
 
-    InfoPdf infoPdf = new InfoPdf();
 
+    public void imprimirImg(PDDocument crearDocumento, int numeroPaginas,int paginaFinal,String pathImgSave,String nombreImgs,String formatoImg) throws IOException {
 
+        InfoPdf InformacionPdf = new InfoPdf();
+        
+        if(!(nombreImgs.trim().isEmpty())){
 
-    private PDDocument Crear;
-
-    public void imprimirNoPaginas(PDDocument crearDocumento, int numeroPaginas) throws IOException {
+        }else{
+            nombreImgs=InformacionPdf.getNombrePdf();
+        }
 
         PDFRenderer renderer = new PDFRenderer(crearDocumento);
 
-        //Rendering an image from the PDF document
         BufferedImage image;
-        for(int i=0;i<numeroPaginas;i++){
-            image= renderer.renderImage(i);
+        if(paginaFinal<=0){
+
+            image= renderer.renderImage(0);
             //Writing the image to a file
-            ImageIO.write(image, "JPEG", new File("C:/Users/chino/Desktop/myimage"+i+".jpg"));
+            ImageIO.write(image, formatoImg, new File(pathImgSave+nombreImgs+1+".jpg"));
+
+        }else{
+            for(int i=numeroPaginas;i<paginaFinal;i++){
+                image= renderer.renderImage(i);
+                //Writing the image to a file
+                ImageIO.write(image, formatoImg, new File(pathImgSave+nombreImgs+i+".jpg"));
+            }
         }
-
-
-
-
     }
-
-
 }

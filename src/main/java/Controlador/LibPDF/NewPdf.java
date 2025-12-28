@@ -12,7 +12,7 @@ public class NewPdf {
     public NewPdf(String ruta){
         this.ruta=ruta;
     }
-
+    /* Este metodo sirve para abrir un pdf y guardarlo en tipo PDDocument */
     public PDDocument NewPDDPdf () throws IOException {
         OpenPdfs = Loader.loadPDF(new RandomAccessReadBufferedFile(ruta));
         return OpenPdfs;
