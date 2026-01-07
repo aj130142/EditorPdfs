@@ -1,10 +1,13 @@
-package Controlador.LibPDF;
+package Controlador.LibPDF.OperacionesPDF;
 import java.awt.print.PrinterJob;
-import org.apache.pdfbox.io.RandomAccessRead;
+
+import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
+import org.apache.pdfbox.pdmodel.PDPage;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 import java.io.IOException;
 
@@ -51,8 +54,37 @@ public class OperacionPdf {
         PDFmerger.mergeDocuments(null);
         System.out.println("Documents merged");
     }
-    public void splitPdf(PDDocument docPDf){
+    public void splitPdf(PDDocument docPDf,int numeroPagInicial, int numeroPagFinal,String pathOut) throws IOException {
 
+        PDDocument pd = new PDDocument();
+
+
+        for(int i=numeroPagInicial;i<=numeroPagFinal;i++) {
+            pd.addPage(docPDf.getPage(i));
+
+
+
+        }
+        pd.save(pathOut+"split"+".pdf");
+
+
+        
+    }
+    public void splitAllPdf(PDDocument docPDf,int numeroPagInicial,String pathOut) throws IOException {
+        Splitter splitter = new Splitter();
+        List<PDDocument> Pages = splitter.split(docPDf);
+        Iterator<PDDocument> iterator = Pages.listIterator();
+        PDDocument pd = new PDDocument();
+
+        int j = numeroPagInicial;
+
+        while (iterator.hasNext()) {
+            pd = iterator.next();
+            pd.save(pathOut
+                    + j++ + ".pdf");
+        }
+
+        pd.close();
     }
 
 }
