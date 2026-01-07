@@ -1,9 +1,12 @@
 package Controlador.LibPDF.Encryptacion;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -60,6 +63,18 @@ public class EncrytPDF {
 
     }
 
+    public void descryp(PDDocument pdd,String outPath) throws IOException
+    {
+
+
+        pdd.setAllSecurityToBeRemoved(true);
+
+
+        pdd.save(outPath);
+
+        pdd.close();
+
+    }
 
 
 }

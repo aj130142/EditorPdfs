@@ -1,5 +1,6 @@
 package App;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Main {
 
         String mergeOut="C:\\Users\\chino\\Desktop\\pdfTest\\test.pdf";
         String splitOut="C:\\Users\\chino\\Desktop\\pdfTest\\splitPdf.pdf";
+        String passNever="C:\\Users\\chino\\Desktop\\pdfTest\\SinPass.pdf";
         String pdf1="C:\\Users\\chino\\Desktop\\pdfTest\\Diagrama.pdf";
         String pdf2="C:\\Users\\chino\\Desktop\\ZONA ECOLOGIA 1ER SEMESTRE 2025.pdf";
         String pdf3="C:\\Users\\chino\\Desktop\\pdfTest\\MergeFinal.pdf";
@@ -31,7 +33,7 @@ public class Main {
         listaDoc.add(pdf1);
         listaDoc.add(pdf2);
         listaDoc.add(pdf3);
-        try(PDDocument document = Loader.loadPDF(new RandomAccessReadBufferedFile(pdf3))){
+        try(PDDocument document = Loader.loadPDF(new File(splitOut),"hola")){
             List<Boolean> listaBoolean= new ArrayList<>();
             listaBoolean.add(false);
             listaBoolean.add(true);
@@ -45,37 +47,14 @@ public class Main {
 
             String nombre="Usuario";
             System.out.println("hola "+nombre);
-            encryptar.EncrytarPDFs(document,"hola","1234",splitOut,128,listaBoolean,0);
+            //encryptar.EncrytarPDFs(document,"hola","1234",splitOut,128,listaBoolean,0);
+            encryptar.descryp(document,passNever);
 
-            //imagenes.imprimirImg(document,0,2,"C:\\Users\\chino\\Desktop\\","pruebas","PNG");
-            //Instantiating Splitter class
-
-            //mergerPdfMulti.splitPdf(document,2,4,mergeOut);
-            //splitting the pages of a PDF document
-
-
-            //Creating an iterator
-
-
-
-
-
-
-
-            System.out.println("Multiple PDFs created");
-            document.close();
 
         } catch (Exception e) {
             System.out.println("Errror");
             throw new RuntimeException(e);
-
         }
-
-
-
-
-
-
 
     }
 }

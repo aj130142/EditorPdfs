@@ -3,19 +3,21 @@ import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
+import java.io.File;
 import java.io.IOException;
 
 public class NewPdf {
-    private PDDocument OpenPdfs;
-    private  String ruta;
 
-    public NewPdf(String ruta){
-        this.ruta=ruta;
-    }
     /* Este metodo sirve para abrir un pdf y guardarlo en tipo PDDocument */
-    public PDDocument NewPDDPdf () throws IOException {
-        OpenPdfs = Loader.loadPDF(new RandomAccessReadBufferedFile(ruta));
+    public PDDocument NewPDDPdf (String ruta) throws IOException {
+        PDDocument OpenPdfs = Loader.loadPDF(new RandomAccessReadBufferedFile(ruta));
         return OpenPdfs;
     }
+    public PDDocument loadEncrypPdf(String ruta,String pass)throws IOException{
+
+        PDDocument OpenPdfs = Loader.loadPDF(new File(ruta),pass);
+        return OpenPdfs;
+    }
+
 
 }
